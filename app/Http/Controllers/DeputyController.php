@@ -50,10 +50,6 @@ class DeputyController extends Controller
 
         $expenses = $query->get();
 
-        $teste = Expense::get()->where('deputado_id', 204560);
-        
-        dd($teste->toArray());
-
         $totalExpenses = $expenses->sum('valor_documento');
 
 
