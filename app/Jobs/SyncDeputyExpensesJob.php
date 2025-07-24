@@ -24,7 +24,7 @@ class SyncDeputyExpensesJob implements ShouldQueue
      */
     public function __construct()
     {
-        $this->handle();
+        //
     }
 
     /**
@@ -59,8 +59,9 @@ class SyncDeputyExpensesJob implements ShouldQueue
 
             foreach ($responseExpenses as $expense) {
                 Expense::updateOrCreate(
-                    ['deputado_id' => $dep['id']],
+                    ['deputado_id' => $dep['id'], 'data_documento' => $expense['dataDocumento'], 'tipo_despesa' => $expense['tipoDespesa']],
                     [
+                        'deputado_id' => $dep['id'],
                         'ano' => $expense['ano'],
                         'mes' => $expense['mes'],
                         'tipo_despesa' => $expense['tipoDespesa'],
