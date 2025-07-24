@@ -40,6 +40,8 @@ class DeputyController extends Controller
         $year = request('year') ?? date('Y');
         $month = request('month');
 
+        // dd($year);
+
         $deputy = Deputie::findOrFail($id);
 
         $query = Expense::where('deputado_id', $id)->where('ano', $year);
@@ -49,6 +51,8 @@ class DeputyController extends Controller
         }
 
         $expenses = $query->get();
+
+        // dd($expenses);
 
         $totalExpenses = $expenses->sum('valor_documento');
 
