@@ -55,6 +55,11 @@
                 </div>
             </div>
         @endforeach
+        
+    </div>
+
+    <div class="mt-5">
+        {{ $deputies->appends(request()->query())->links() }}
     </div>
 
     <script>
