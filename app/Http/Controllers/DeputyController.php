@@ -13,6 +13,10 @@ class DeputyController extends Controller
         $uf = $request['uf'];
         $party = $request['party'];
 
+        $validatedName = $request->validate([
+            'name' => 'string|max:100'
+        ]);
+
 
         $query = Deputie::query();
 
@@ -24,6 +28,11 @@ class DeputyController extends Controller
         if ($party)
         {
             $query->where('sigla_partido', $party);
+        }
+
+        if($request->filled('name'))
+        {
+            $query->where('nome', 'like', '%' . $validatedName['name'] . '%');
         }
 
         $deputies = $query->get();
