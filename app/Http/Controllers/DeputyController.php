@@ -2,14 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SyncDeputyExpensesJob;
 use App\Models\Expense;
 use Illuminate\Http\Request;
 use App\Models\Deputie;
+use function PHPUnit\Framework\isEmpty;
 
 class DeputyController extends Controller
 {
     function index(Request $request)
     {
+        $deputies = Deputies::get();
+
+        if (isEmpty($deputies))
+        {
+            SyncDeputyExpensesJob::dispatch();
+        }
+
         $uf = $request['uf'];
         $party = $request['party'];
 
