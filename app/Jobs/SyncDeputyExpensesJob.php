@@ -10,6 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 use App\Models\Expense;
 use App\Models\Deputie;
+use function PHPUnit\Framework\isEmpty;
 
 class SyncDeputyExpensesJob implements ShouldQueue
 {
@@ -17,14 +18,20 @@ class SyncDeputyExpensesJob implements ShouldQueue
 
     public $timeout = 2400;
 
-    public $failOnTimeout = false;
-
     /**
      * Create a new job instance.
      */
     public function __construct()
     {
-        //
+        $data = Deputie::get();
+
+        if (isEmpty($data))
+        {
+            echo "\nUm momento, atualizando o banco de dados...";
+            echo "\nO processo pode demorar um pouco, então tome um café...";
+            $this->handle();
+        }
+        
     }
 
     /**
