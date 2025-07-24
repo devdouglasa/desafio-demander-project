@@ -18,7 +18,7 @@
 
         <div class="col-md-3">
             <label class="form-label">Partido</label>
-            <select name="partido" class="form-select">
+            <select name="party" class="form-select">
                 <option value="">Todos</option>
                 @foreach($parties as $partyOption)
                     <option value="{{ $partyOption }}" {{ $party == $partyOption ? 'selected' : '' }}>
@@ -26,6 +26,11 @@
                     </option>
                 @endforeach
             </select>
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Nome</label>
+            <input type="text" name="name" class="form-control" placeholder="Buscar por nome" value="" maxlength="100">
         </div>
 
         <div class="col-md-3 d-flex align-items-end">
@@ -51,5 +56,16 @@
             </div>
         @endforeach
     </div>
+
+    <script>
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function (e) {
+            const nameInput = form.querySelector('input[name="name"]');
+            if (!nameInput.value.trim()) {
+                nameInput.removeAttribute('name'); // remove do GET
+            }
+        });
+    </script>
 @endsection
 
