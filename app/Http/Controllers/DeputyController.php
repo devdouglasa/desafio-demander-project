@@ -35,7 +35,7 @@ class DeputyController extends Controller
             $query->where('nome', 'like', '%' . $validatedName['name'] . '%');
         }
 
-        $deputies = $query->get();
+        $deputies = $query->paginate(10);
 
         $ufs = Deputie::select('sigla_uf')->distinct()->orderBy('sigla_uf')->pluck('sigla_uf');
 
