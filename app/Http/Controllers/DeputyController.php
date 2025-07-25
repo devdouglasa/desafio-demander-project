@@ -65,7 +65,7 @@ class DeputyController extends Controller
         $totalExpenses = $expenses->sum('valor_documento');
 
 
-        $expensesForType = $expenses->orderBy('tipo_despesa')->map(function ($items) {
+        $expensesForType = $expenses->groupBy('tipo_despesa')->map(function ($items) {
             return $items->sum('valor_documento');
         });
 
