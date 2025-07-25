@@ -6,7 +6,6 @@ use App\Jobs\SyncDeputyExpensesJob;
 use App\Models\Expense;
 use Illuminate\Http\Request;
 use App\Models\Deputie;
-use function PHPUnit\Framework\isEmpty;
 
 class DeputyController extends Controller
 {

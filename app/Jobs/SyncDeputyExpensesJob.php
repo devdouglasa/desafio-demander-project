@@ -23,13 +23,13 @@ class SyncDeputyExpensesJob implements ShouldQueue
      */
     public function __construct()
     {
-        $deputie = Deputie::all();
+        $deputie = Deputie::get();
 
         if (empty($deputie))
         {
             echo "\nUm momento, atualizando banco de dados...";
             echo "\nO processo pode demorar um pouco...";
-            $this->dispatch();
+            $this->handle();
         }
     }
 
