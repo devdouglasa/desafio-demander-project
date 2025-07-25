@@ -12,13 +12,6 @@ class DeputyController extends Controller
 {
     function index(Request $request)
     {
-        $deputies = Deputies::get();
-
-        if (isEmpty($deputies))
-        {
-            SyncDeputyExpensesJob::dispatch();
-        }
-
         $uf = $request['uf'];
         $party = $request['party'];
 
