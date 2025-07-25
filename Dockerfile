@@ -15,7 +15,7 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-scripts
 
 # Permissões
 RUN chown -R www-data:www-data /var/www \
