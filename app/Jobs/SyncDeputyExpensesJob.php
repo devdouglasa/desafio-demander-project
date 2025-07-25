@@ -25,7 +25,7 @@ class SyncDeputyExpensesJob implements ShouldQueue
     {
         $deputie = Deputie::get();
 
-        if (empty($deputie))
+        if (isEmpty($deputie))
         {
             echo "\nUm momento, atualizando banco de dados...";
             echo "\nO processo pode demorar um pouco...";
