@@ -23,7 +23,12 @@ class SyncDeputyExpensesJob implements ShouldQueue
      */
     public function __construct()
     {
-        //
+        $deputie = Deputie::all();
+
+        if (empty($deputie))
+        {
+            $this->dispatch();
+        }
     }
 
     /**
