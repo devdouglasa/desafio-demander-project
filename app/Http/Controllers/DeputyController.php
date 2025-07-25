@@ -59,13 +59,13 @@ class DeputyController extends Controller
             $query->where('mes', $month);
         }
 
-        $expenses = $query->groupBy('data_documento')->get();
+        $expenses = $query->orderBy('data_documento')->get();
 
 
         $totalExpenses = $expenses->sum('valor_documento');
 
 
-        $expensesForType = $expenses->groupBy('tipo_despesa')->map(function ($items) {
+        $expensesForType = $expenses->orderBy('tipo_despesa')->map(function ($items) {
             return $items->sum('valor_documento');
         });
 
