@@ -5,52 +5,46 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: laravel_demander_app
-    restart: always
-    # Em produção na AWS, não use volume .:/var/www/html.
-    # O código estará dentro da imagem Docker.
-    # Para persistência de uploads, use S3. Para logs, CloudWatch Logs.
+    container_name: laravel_app
+    restart: unless-stopped
     volumes:
-      - .:/var/www/html # Usado apenas para desenvolvimento local
-    environment:
-      # Variáveis de ambiente para o Laravel - substitua com suas credenciais do RDS na AWS
-      APP_ENV: production
-      APP_DEBUG: false # Sempre false em produção
-      APP_URL: http://localhost # Altere para a URL da sua aplicação na AWS
-      DB_CONNECTION: mysql # Ou pgsql se for usar PostgreSQL
-      DB_HOST: db # Nome do serviço do banco de dados no docker-compose local, ou endpoint do RDS na AWS
-      DB_PORT: 3306 # Ou 5432 para PostgreSQL
-      DB_DATABASE: demander_db # Nome do seu banco de dados
-      DB_USERNAME: demander_user # Usuário do banco de dados
-      DB_PASSWORD: demander_password # Senha do banco de dados
-      # Chave da aplicação Laravel, gerar com 'php artisan key:generate'
-      APP_KEY: ${APP_KEY}
-      # Outras variáveis específicas do projeto, se houver
+      - .:/var/www
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  webserver:
+    image: nginx:alpine
+    container_name: nginx_web
+    restart: unless-stopped
     ports:
-      - "80:80" # Mapeia a porta 80 do host para a porta 80 do container Nginx
+      - "80:80"
+    volumes:
+      - .:/var/www
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - app-network
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_USER: laravel
+    volumes:
+      - dbdata:/var/lib/mysql
     networks:
       - app-network
 
-  # Serviço de banco de dados (MySQL) para desenvolvimento local
-  # EM PRODUÇÃO NA AWS, NÃO USE ESTE CONTAINER! Use AWS RDS.
-  db:
-    image: mysql:8.0
-    container_name: mysql_demander_db
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: demander_password # Altere para uma senha forte para ambiente local
-      MYSQL_DATABASE: demander_db
-      MYSQL_USER: demander_user
-      MYSQL_PASSWORD: demander_password
-    volumes:
-      - dbdata:/var/lib/mysql # Volume para persistência de dados local
-    networks:
-      - app-network
+volumes:
+  dbdata:
 
 networks:
   app-network:
     driver: bridge
-
-volumes:
-  dbdata:
-    driver: local

@@ -27,6 +27,8 @@ class SyncDeputyExpensesJob implements ShouldQueue
 
         if (empty($deputie))
         {
+            echo "\nUm momento, atualizando banco de dados...";
+            echo "\nO processo pode demorar um pouco...";
             $this->dispatch();
         }
     }
