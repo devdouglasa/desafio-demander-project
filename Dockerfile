@@ -18,8 +18,8 @@ COPY . .
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-scripts
 
 # Permissões
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage
+RUN chown -R www-data:www-data /var/www/ /var/www/storage /var/www/bootstrap/cache \
+    && chmod -R 755 /var/www/storage /var/www/bootstrap/cache
 
 EXPOSE 9000
 
