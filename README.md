@@ -10,7 +10,8 @@
 <img width=50 src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" /> &nbsp;&nbsp;&nbsp;&nbsp;
 <img width=50 src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
 <img width=50 src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original-wordmark.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
-<img width=50 src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" />
+<img width=50 src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
+<img width=50 src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" />
           
 #
 
